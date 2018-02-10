@@ -6,7 +6,7 @@ Allows you have a full dictionary with definitions, synonyms, and antonyms.
 
 1. In your terminal:
 ```
-composer require abbyjanke/backpackblog
+composer require abbyjanke/backpackdictionary
 ```
 
 2. Publish the config file & run migrations.
