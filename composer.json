@@ -6,7 +6,7 @@
         "dictionary",
         "define",
         "synonyms",
-        "antonyms"
+        "antonyms",
         "laravel"
     ],
     "type": "library",
