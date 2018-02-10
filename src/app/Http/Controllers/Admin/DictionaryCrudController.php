@@ -75,7 +75,7 @@ class DictionaryCrudController extends CrudController
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreRequest $request = null)
+    public function store(StoreRequest $request)
     {
         $this->crud->hasAccessOrFail('create');
 
