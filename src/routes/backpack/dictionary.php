@@ -22,7 +22,7 @@ Route::group([
 // Web Routes
 Route::group([
   'namespace' => 'AbbyJanke\BackpackDictionary\app\Http\Controllers',
-  'prefix' => config('backpack.dictionary.route_prefix', 'dictionary'),
+  'prefix' => 'dictionary',
   'middleware' => ['web'],
 ], function () {
   Route::get('/', 'DictionaryController@index')->name('dictionary.index');

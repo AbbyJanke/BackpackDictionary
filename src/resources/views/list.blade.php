@@ -9,16 +9,16 @@
           @foreach($letters as $letter)
             <?php $words = getWordsStartsWith($letter); ?>
             @if(count($words))
-              <a href="#{{ $letter }}" class="list-group-item text-center">{{ $letter }}</a>
+              <a href="#@lang('backpack::dictionary.'.$letter)" class="list-group-item text-center">@lang('backpack::dictionary.'.$letter)</a>
             @else
-              <span class="list-group-item text-center" style="background:rgba(0,0,0,0.015);cursor: not-allowed;">{{ $letter }}</span>
+              <span class="list-group-item text-center" style="background:rgba(0,0,0,0.015);cursor: not-allowed;">@lang('backpack::dictionary.'.$letter)</span>
             @endif
           @endforeach
         </ul>
       </div>
         <div class="col-md-8">
             <div class="panel panel-default">
-                <div class="panel-heading">Dictionary</div>
+                <div class="panel-heading">@lang('backpack::dictionary.dictionary')</div>
 
                 <div class="panel-body">
                   <nav aria-label="Page navigation">

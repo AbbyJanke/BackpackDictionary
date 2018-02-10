@@ -47,9 +47,12 @@ class DictionaryServiceProvider extends ServiceProvider
 
         require_once(realpath(__DIR__.'/app/Helpers.php'));
 
-        // publish config file
-        $this->publishes([__DIR__.'/config' => config_path()], 'config');
-        $this->loadViewsFrom(resource_path('views/vendor/abbyjanke/backpack/dictionary'), 'dictionary');
+        // publish files
+        $this->publishes([__DIR__.'/resources/lang' => resource_path('lang/vendor/backpack')], 'lang');
+        $this->publishes([__DIR__.'/resources/views' => resource_path('views/vendor/backpack/dictionary')], 'views');
+
+        $this->loadTranslationsFrom(realpath(__DIR__.'/resources/lang'), 'backpack');
+        $this->loadViewsFrom(resource_path('views/vendor/backpack/dictionary'), 'dictionary');
         $this->loadViewsFrom(realpath(__DIR__.'/resources/views'), 'dictionary');
 
         // load migrations
