@@ -95,9 +95,11 @@ class DictionaryCrudController extends CrudController
         $item = $this->crud->create($request->except(['save_action', '_token', '_method']));
 
         $syncArray = [];
+        $reverseSyncArray = [];
         if($request->has('synonym')) {
           foreach($request->get('synonym') as $synonym) {
             $syncArray[(int)$synonym] = ['relationship' => 'synonym'];
+            $reverseSyncArray[] = ['parent_id' => (int)$synonym, 'child_id' => $item->id, 'relationship' => 'synonym'];
           }
         }
         $item->related()->sync($syncArray);
@@ -106,6 +108,7 @@ class DictionaryCrudController extends CrudController
         if($request->has('antonym')) {
           foreach($request->get('antonym') as $antonym) {
             $syncArray[(int)$antonym] = ['relationship' => 'antonym'];
+            $reverseSyncArray[] = ['parent_id' => (int)$antonym, 'child_id' => $item->id, 'relationship' => 'antonym'];
           }
         }
         $item->related()->sync($syncArray);
@@ -114,9 +117,12 @@ class DictionaryCrudController extends CrudController
         if($request->has('basic')) {
           foreach($request->get('basic') as $basic) {
             $syncArray[(int)$basic] = ['relationship' => 'basic'];
+            $reverseSyncArray[] = ['parent_id' => (int)$basic, 'child_id' => $item->id, 'relationship' => 'basic'];
           }
         }
         $item->related()->sync($syncArray);
+
+        DB::table('dictionary_related')->insert($reverseSyncArray);
 
         $this->data['entry'] = $this->crud->entry = $item;
 
@@ -153,9 +159,11 @@ class DictionaryCrudController extends CrudController
 
 
         $syncArray = [];
+        $reverseSyncArray = [];
         if($request->has('synonym')) {
           foreach($request->get('synonym') as $synonym) {
             $syncArray[(int)$synonym] = ['relationship' => 'synonym'];
+            $reverseSyncArray[] = ['parent_id' => (int)$synonym, 'child_id' => $item->id, 'relationship' => 'synonym'];
           }
         }
         $item->related()->sync($syncArray);
@@ -164,6 +172,7 @@ class DictionaryCrudController extends CrudController
         if($request->has('antonym')) {
           foreach($request->get('antonym') as $antonym) {
             $syncArray[(int)$antonym] = ['relationship' => 'antonym'];
+            $reverseSyncArray[] = ['parent_id' => (int)$antonym, 'child_id' => $item->id, 'relationship' => 'antonym'];
           }
         }
         $item->related()->sync($syncArray);
@@ -172,9 +181,12 @@ class DictionaryCrudController extends CrudController
         if($request->has('basic')) {
           foreach($request->get('basic') as $basic) {
             $syncArray[(int)$basic] = ['relationship' => 'basic'];
+            $reverseSyncArray[] = ['parent_id' => (int)$basic, 'child_id' => $item->id, 'relationship' => 'basic'];
           }
         }
         $item->related()->sync($syncArray);
+
+        DB::table('dictionary_related')->insert($reverseSyncArray);
 
         $this->data['entry'] = $this->crud->entry = $item;
 
