@@ -124,41 +124,34 @@ class DictionaryCrudController extends CrudController
         $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
                             $request->except('save_action', '_token', '_method'));
 
-        $children_synced = DB::table('dictionary_related')->where('parent_id', $item->id)->get();
+        $deleteRelated = DB::table('dictionary_related')->where('parent_id', $item->id)->delete();
 
+
+        $syncArray = [];
 
         if($request->has('synonym')) {
           foreach($request->get('synonym') as $synonym) {
-            foreach($children_synced as $childSync) {
-              if($childSync->child_id == $synonym) {
-                continue;
-              }
-            }
-            $syncArray[$synonym] = ['relationship' => 'synonym'];
-          }
-        }
-
-        if($request->has('antonym')) {
-          foreach($request->get('antonym') as $antonym) {
-            foreach($children_synced as $childSync) {
-              if($childSync->child_id == $antonym) {
-                continue;
-              }
-            }
-            $syncArray[$synonym] = ['relationship' => 'antonym'];
-          }
-        }
-
-        if($request->has('basic')) {
-          foreach($request->get('basic') as $basic) {
-            if($children_synced->child_id == $basic) {
-              continue;
-            }
-            $syncArray[$basic] = ['relationship' => 'basic'];
+            $syncArray[(int)$synonym] = ['relationship' => 'synonym'];
           }
         }
 
         $item->related()->sync($syncArray);
+        $syncArray = [];
+
+        if($request->has('antonym')) {
+          foreach($request->get('antonym') as $antonym) {
+            $syncArray[(int)$antonym] = ['relationship' => 'antonym'];
+          }
+        }
+
+        $item->related()->sync($syncArray);
+        $syncArray = [];
+
+        if($request->has('basic')) {
+          foreach($request->get('basic') as $basic) {
+            $syncArray[(int)$basic] = ['relationship' => 'basic'];
+          }
+        }
 
         $this->data['entry'] = $this->crud->entry = $item;
 

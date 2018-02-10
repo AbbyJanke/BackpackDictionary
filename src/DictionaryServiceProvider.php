@@ -49,11 +49,10 @@ class DictionaryServiceProvider extends ServiceProvider
 
         // publish files
         $this->publishes([__DIR__.'/resources/lang' => resource_path('lang/vendor/backpack')], 'lang');
-        $this->publishes([__DIR__.'/resources/views' => resource_path('views/vendor/backpack/dictionary')], 'views');
+        $this->publishes([__DIR__.'/resources/views' => resource_path('views/vendor/backpack')], 'views');
 
         $this->loadTranslationsFrom(realpath(__DIR__.'/resources/lang'), 'backpack');
         $this->loadViewsFrom(resource_path('views/vendor/backpack/dictionary'), 'dictionary');
-        $this->loadViewsFrom(realpath(__DIR__.'/resources/views'), 'dictionary');
 
         // load migrations
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
