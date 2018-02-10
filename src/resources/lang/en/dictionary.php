@@ -15,6 +15,10 @@ return [
     'antonym' => 'Antonynm|Antonynms',
     'related' => 'Related',
     'last_update' => 'Last Update',
+    'word' => 'Word',
+    'slug' => 'Slug (URL)',
+    'slug_helper' => 'Will be automatically generated from your word, if left empty.',
+    'id' => 'ID',
 
     'A' => 'A',
     'B' => 'B',

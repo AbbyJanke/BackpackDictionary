@@ -18,8 +18,6 @@
                         $relatedBas = $word->related()->get();
                         $relatedSyn = $word->related('synonym')->get();
                         $relatedAnt = $word->related('antonym')->get();
-                        $relationshipTypes = ['basic', 'synonym', 'antonym'];
-                        $array = [];
                       @endphp
 
                       @if(count($relatedSyn))
@@ -52,8 +50,7 @@
                       </li>
                       @endif
 
-                      <li><strong>@choice('backpack::dictionary.last_update', 2):</strong> {{ $word->updated_at }}
-                      </li>
+                      <li><strong>@choice('backpack::dictionary.last_update', 2):</strong> {{ $word->updated_at }}</li>
                     </ul>
                   </nav>
                 </div>
