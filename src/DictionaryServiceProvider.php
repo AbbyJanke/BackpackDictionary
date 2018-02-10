@@ -7,6 +7,10 @@ use Illuminate\Support\ServiceProvider;
 
 class DictionaryServiceProvider extends ServiceProvider
 {
+    protected $helpers = [
+        'Helpers'
+    ];
+
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -41,8 +45,12 @@ class DictionaryServiceProvider extends ServiceProvider
         // define the routes for the application
         $this->setupRoutes($this->app->router);
 
+        require_once(realpath(__DIR__.'/app/Helpers.php'));
+
         // publish config file
         $this->publishes([__DIR__.'/config' => config_path()], 'config');
+        $this->loadViewsFrom(resource_path('views/vendor/abbyjanke/backpack/dictionary'), 'dictionary');
+        $this->loadViewsFrom(realpath(__DIR__.'/resources/views'), 'dictionary');
 
         // load migrations
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');

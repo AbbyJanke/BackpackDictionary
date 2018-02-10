@@ -26,4 +26,5 @@ Route::group([
   'middleware' => ['web'],
 ], function () {
   Route::get('/', 'DictionaryController@index')->name('dictionary.index');
+  Route::get('{slug}', 'DictionaryController@show')->name('dictionary.show');
 });

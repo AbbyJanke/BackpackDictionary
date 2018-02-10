@@ -60,6 +60,6 @@ class Dictionary extends Model
 
     public function related($relationship = 'basic')
     {
-      return $this->belongsToMany('AbbyJanke\BackpackDictionary\app\Models\Dictionary', 'dictionary_related', 'parent_id', 'child_id')->where('relationship', '=', $relationship);
+      return $this->belongsToMany('AbbyJanke\BackpackDictionary\app\Models\Dictionary', 'dictionary_related', 'parent_id', 'child_id')->wherePivot('relationship', $relationship);
     }
 }

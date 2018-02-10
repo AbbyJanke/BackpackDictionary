@@ -9,7 +9,7 @@ class DictionaryController extends Controller
     private $data = [];
 
     /**
-     * Display a blog article page.
+     * Display a list of all words within the dictionary.
      *
      * @param $slug
      * @param Request $request
@@ -19,8 +19,18 @@ class DictionaryController extends Controller
     {
 
         $data['definitions'] = Dictionary::orderBy('word', 'asc')->get();
+        $data['letters'] = range('A', 'Z');
 
-        dd($data['definitions']);
-        return view('blog::author', $this->data);
+        return view('dictionary::list', $data);
     }
+
+    public function show($slug) {
+
+      $data['word'] = Dictionary::findBySlug($slug);
+
+      return view('dictionary::show', $data);
+
+    }
+
+
 }
