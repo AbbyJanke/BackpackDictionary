@@ -93,6 +93,31 @@ class DictionaryCrudController extends CrudController
 
         // insert item in the db
         $item = $this->crud->create($request->except(['save_action', '_token', '_method']));
+
+        $syncArray = [];
+        if($request->has('synonym')) {
+          foreach($request->get('synonym') as $synonym) {
+            $syncArray[(int)$synonym] = ['relationship' => 'synonym'];
+          }
+        }
+        $item->related()->sync($syncArray);
+
+        $syncArray = [];
+        if($request->has('antonym')) {
+          foreach($request->get('antonym') as $antonym) {
+            $syncArray[(int)$antonym] = ['relationship' => 'antonym'];
+          }
+        }
+        $item->related()->sync($syncArray);
+
+        $syncArray = [];
+        if($request->has('basic')) {
+          foreach($request->get('basic') as $basic) {
+            $syncArray[(int)$basic] = ['relationship' => 'basic'];
+          }
+        }
+        $item->related()->sync($syncArray);
+
         $this->data['entry'] = $this->crud->entry = $item;
 
         // show a success message
@@ -128,30 +153,28 @@ class DictionaryCrudController extends CrudController
 
 
         $syncArray = [];
-
         if($request->has('synonym')) {
           foreach($request->get('synonym') as $synonym) {
             $syncArray[(int)$synonym] = ['relationship' => 'synonym'];
           }
         }
-
         $item->related()->sync($syncArray);
-        $syncArray = [];
 
+        $syncArray = [];
         if($request->has('antonym')) {
           foreach($request->get('antonym') as $antonym) {
             $syncArray[(int)$antonym] = ['relationship' => 'antonym'];
           }
         }
-
         $item->related()->sync($syncArray);
-        $syncArray = [];
 
+        $syncArray = [];
         if($request->has('basic')) {
           foreach($request->get('basic') as $basic) {
             $syncArray[(int)$basic] = ['relationship' => 'basic'];
           }
         }
+        $item->related()->sync($syncArray);
 
         $this->data['entry'] = $this->crud->entry = $item;
 
