@@ -1,4 +1,5 @@
 <?php
+if(!isset($id)) { $id = NULL; }
 $related = \DB::table('dictionary_related')->where('parent_id', $id)->get();
 $relatedID = [];
 ?>
